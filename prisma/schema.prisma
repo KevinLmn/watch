@@ -1,0 +1,52 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Source {
+  id        String   @id @default(cuid())
+  name      String
+  url       String   @unique
+  type      String   // "newsletter" | "youtube"
+  icon      String?
+  enabled   Boolean  @default(true)
+  items     Item[]
+  createdAt DateTime @default(now())
+}
+
+model Item {
+  id          String   @id @default(cuid())
+  sourceId    String
+  source      Source   @relation(fields: [sourceId], references: [id], onDelete: Cascade)
+  title       String
+  url         String   @unique
+  description String?  @db.Text
+  thumbnail   String?
+  publishedAt DateTime
+  isRead      Boolean  @default(false)
+  isFavorite  Boolean  @default(false)
+  toStudy     Boolean  @default(false)
+  watchLater  Boolean  @default(false)
+  notes       String?  @db.Text
+  viewCount   Int?
+  likeCount   Int?
+  duration    Int?     // Duration in seconds (for videos)
+  wordCount   Int?     // Word count (for articles)
+  createdAt   DateTime @default(now())
+
+  @@index([sourceId])
+  @@index([publishedAt])
+  @@index([isRead])
+  @@index([isFavorite])
+  @@index([toStudy])
+  @@index([watchLater])
+}
+
+model Settings {
+  id       String @id @default("main")
+  password String
+}

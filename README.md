@@ -1,36 +1,89 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Veille - Personal Tech Feed Aggregator
 
-## Getting Started
+A self-hosted tech news aggregator that collects content from newsletters and YouTube channels.
 
-First, run the development server:
+## Features
 
+- Aggregates 13+ newsletter sources and 10+ YouTube channels
+- Password-protected access
+- Mark items as read/unread and favorite
+- History navigation by date
+- Search across all items
+- Filter by source type (newsletters/YouTube)
+- Enable/disable individual sources
+- Keyboard shortcuts (j/k navigate, o open, r read, f favorite)
+- Dark mode support
+- Auto-refresh every 30 minutes via node-cron
+- Mobile responsive
+
+## Quick Start (Development)
+
+1. Start PostgreSQL:
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+docker compose up db -d
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. Install dependencies and setup database:
+```bash
+npm install
+npx prisma migrate dev
+npm run db:seed
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+3. Start the dev server:
+```bash
+npm run dev
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+4. Open http://localhost:3000 and login with password: `veille2024`
 
-## Learn More
+## Production Deployment
 
-To learn more about Next.js, take a look at the following resources:
+1. Copy `.env.example` to `.env` and configure:
+```bash
+cp .env.example .env
+# Edit .env with your settings
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+2. Deploy with Docker Compose:
+```bash
+docker compose up -d
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+3. Run database migrations:
+```bash
+docker compose exec app npx prisma migrate deploy
+docker compose exec app npm run db:seed
+```
 
-## Deploy on Vercel
+## Environment Variables
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+| Variable | Description | Default |
+|----------|-------------|---------|
+| `DATABASE_URL` | PostgreSQL connection string | - |
+| `AUTH_SECRET` | Secret for session tokens | - |
+| `AUTH_PASSWORD` | Login password | `veille2024` |
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Sources
+
+### Newsletters
+- Bytes, TLDR, Pointer, Software Lead Weekly
+- JavaScript Weekly, React Status, Node Weekly
+- Hacker News, The Pragmatic Engineer, Changelog
+- Frontend Focus, CSS Weekly, Smashing Magazine
+
+### YouTube
+- Fireship, Theo (t3.gg), ThePrimeagen
+- Traversy Media, Web Dev Simplified
+- Jack Herrington, Matt Pocock
+- Syntax, Kevin Powell, Coding Garden
+
+## Keyboard Shortcuts
+
+| Key | Action |
+|-----|--------|
+| `j` | Next item |
+| `k` | Previous item |
+| `o` / `Enter` | Open in new tab |
+| `r` | Toggle read |
+| `f` | Toggle favorite |

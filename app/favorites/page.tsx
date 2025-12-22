@@ -1,7 +1,6 @@
 "use client";
 
 import { Suspense, useEffect, useState, useCallback } from "react";
-import { useSearchParams } from "next/navigation";
 import { Sidebar } from "@/components/Sidebar";
 import { FeedList } from "@/components/FeedList";
 
@@ -13,10 +12,7 @@ interface Stats {
   watchLater: number;
 }
 
-function HomeContent() {
-  const searchParams = useSearchParams();
-  const type = searchParams.get("type") || undefined;
-
+function FavoritesContent() {
   const [stats, setStats] = useState<Stats>({ total: 0, unread: 0, favorites: 0, toStudy: 0, watchLater: 0 });
 
   const fetchStats = useCallback(async () => {
@@ -37,7 +33,7 @@ function HomeContent() {
     <div className="flex min-h-screen">
       <Sidebar stats={stats} />
       <main className="flex-1 flex flex-col">
-        <FeedList type={type} onStatsUpdate={fetchStats} />
+        <FeedList favorites onStatsUpdate={fetchStats} />
       </main>
     </div>
   );
@@ -51,10 +47,10 @@ function LoadingState() {
   );
 }
 
-export default function HomePage() {
+export default function FavoritesPage() {
   return (
     <Suspense fallback={<LoadingState />}>
-      <HomeContent />
+      <FavoritesContent />
     </Suspense>
   );
 }
