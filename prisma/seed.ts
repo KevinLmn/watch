@@ -237,6 +237,42 @@ const sources = [
     type: "youtube",
     icon: "https://www.youtube.com/s/desktop/f56e2c5d/img/favicon_144x144.png",
   },
+  {
+    name: "Greg Isenberg",
+    url: "https://www.youtube.com/feeds/videos.xml?channel_id=UCPjNBjflYl0-HQtUvOx0Ibw",
+    type: "youtube",
+    icon: "https://www.youtube.com/s/desktop/f56e2c5d/img/favicon_144x144.png",
+  },
+  {
+    name: "Pieter Levels",
+    url: "https://www.youtube.com/feeds/videos.xml?channel_id=UCSw5U1MuzDED2Nvlx9m65-Q",
+    type: "youtube",
+    icon: "https://www.youtube.com/s/desktop/f56e2c5d/img/favicon_144x144.png",
+  },
+  {
+    name: "How I Built This",
+    url: "https://www.youtube.com/feeds/videos.xml?channel_id=UCn-hX1cX2CrQdyDh-qik1ZA",
+    type: "youtube",
+    icon: "https://www.youtube.com/s/desktop/f56e2c5d/img/favicon_144x144.png",
+  },
+  {
+    name: "Starter Story",
+    url: "https://www.youtube.com/feeds/videos.xml?channel_id=UChhw6DlKKTQ9mYSpTfXUYqA",
+    type: "youtube",
+    icon: "https://www.youtube.com/s/desktop/f56e2c5d/img/favicon_144x144.png",
+  },
+  {
+    name: "Juxtopposed",
+    url: "https://www.youtube.com/feeds/videos.xml?channel_id=UCa8W2_uf81Ew6gYuw0VPSeA",
+    type: "youtube",
+    icon: "https://www.youtube.com/s/desktop/f56e2c5d/img/favicon_144x144.png",
+  },
+  {
+    name: "Mizko",
+    url: "https://www.youtube.com/feeds/videos.xml?channel_id=UCZJkZy008cQjqkJeKpJu8tA",
+    type: "youtube",
+    icon: "https://www.youtube.com/s/desktop/f56e2c5d/img/favicon_144x144.png",
+  },
 ];
 
 async function main() {
