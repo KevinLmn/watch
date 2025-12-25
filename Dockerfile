@@ -1,20 +1,18 @@
 FROM node:20-slim AS base
 
-# Install dependencies only when needed
-FROM base AS deps
-RUN apt-get update && apt-get install -y openssl && rm -rf /var/lib/apt/lists/*
-WORKDIR /app
-
-# Copy prisma schema first for postinstall hook
-COPY prisma ./prisma
-COPY package.json package-lock.json ./
-RUN npm ci
-
-# Rebuild the source code only when needed
+# Builder stage - install deps and build
 FROM base AS builder
-RUN apt-get update && apt-get install -y openssl && rm -rf /var/lib/apt/lists/*
+RUN apt-get update && apt-get install -y openssl python3 make g++ && rm -rf /var/lib/apt/lists/*
 WORKDIR /app
-COPY --from=deps /app/node_modules ./node_modules
+
+# Copy package files
+COPY package.json package-lock.json ./
+COPY prisma ./prisma
+
+# Fresh install (ensures native deps are built for this platform)
+RUN rm -rf node_modules package-lock.json && npm install
+
+# Copy source
 COPY . .
 
 # Build the application
