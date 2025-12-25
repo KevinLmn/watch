@@ -8,7 +8,7 @@
     "start": "next start",
     "lint": "eslint",
     "db:migrate": "prisma migrate deploy",
-    "db:seed": "npx tsx prisma/seed.ts",
+    "db:seed": "node prisma/seed.js",
     "db:reset": "prisma migrate reset --force",
     "postinstall": "prisma generate"
   },
